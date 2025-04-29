@@ -12,7 +12,7 @@ public class Phase {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     @Column(name = "title", nullable = false, length = 25)
-    private String title;
+    private PhaseEnum title;
     @ManyToOne
     @JoinColumn(name = "id_startup_fk")
     private Startup startup;

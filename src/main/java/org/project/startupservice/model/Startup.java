@@ -1,10 +1,16 @@
 package org.project.startupservice.model;
 
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
 import java.util.List;
 
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
 @Entity
 @Table(name = "startup")
 public class Startup {
@@ -18,7 +24,7 @@ public class Startup {
     private Long userId;
     @Column(name = "short_desc", nullable = false, length = 128)
     private String shortDescription;
-    @Column(name = "full_desc", nullable = false, length = 512)
+    @Column(name = "full_desc", nullable = false, length = 1024)
     private String longDescription;
     @Column(name = "url_img", nullable = false, length = 256)
     private String url;
