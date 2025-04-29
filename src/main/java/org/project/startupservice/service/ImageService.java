@@ -21,21 +21,6 @@ public class ImageService {
     private final MinioClient minioClient;
     private final MinioProperties minioProperties;
 
-    public String generateFileName(MultipartFile file) {
-        if (file.isEmpty() || file.getOriginalFilename() == null) {
-            throw new ImageUploadException("File is empty");
-        }
-        String extension = getExtension(file.getOriginalFilename());
-        return UUID.randomUUID() + extension;
-    }
-
-    public String getExtension(String fileName) {
-        String extension = fileName.substring(fileName.lastIndexOf(".") + 1);
-        if (extension.equals("jpg") || extension.equals("jpeg") || extension.equals("png")) {
-            return extension;
-        } else throw new ImageUploadException("Extension of image is failed");
-    }
-
     public String uploadImage(MultipartFile file) {
         if (file.isEmpty() || file.getOriginalFilename() == null) {
             throw new ImageUploadException("File is empty");
@@ -52,6 +37,21 @@ public class ImageService {
 
         saveImage(inputStream, fileName);
         return fileName;
+    }
+
+    private String generateFileName(MultipartFile file) {
+        if (file.isEmpty() || file.getOriginalFilename() == null) {
+            throw new ImageUploadException("File is empty");
+        }
+        String extension = getExtension(file.getOriginalFilename());
+        return UUID.randomUUID() + extension;
+    }
+
+    private String getExtension(String fileName) {
+        String extension = fileName.substring(fileName.lastIndexOf(".") + 1);
+        if (extension.equals("jpg") || extension.equals("jpeg") || extension.equals("png")) {
+            return extension;
+        } else throw new ImageUploadException("Extension of image is failed");
     }
 
     @SneakyThrows
