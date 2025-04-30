@@ -1,7 +1,5 @@
 package org.project.startupservice.dto;
 
-import org.project.startupservice.model.Stage;
-
 import java.util.List;
 
 public class StartupResponseCreateDto {
@@ -9,7 +7,7 @@ public class StartupResponseCreateDto {
     private String title;
     private String shortDescription;
     private String fullDescription;
-    private List<Long> categoriesId;
+    private List<CategoryDto> categories;
     private String cover;
-    private Stage stage;
+    private String stage;
 }
