@@ -4,6 +4,8 @@ import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -50,4 +52,16 @@ public class Startup {
     private List<Phase> phases;
     @ManyToMany(mappedBy = "startups")
     private List<Category> categories;
+
+    @PrePersist
+    public void prePersist() {
+        created = LocalDateTime.now();
+        status = Status.МОДЕРАЦИЯ;
+        promotion = 0;
+    }
+
+    @PreUpdate
+    public void preUpdate() {
+        updated = LocalDateTime.now();
+    }
 }

@@ -9,6 +9,7 @@ import org.springframework.web.multipart.MultipartFile;
 import java.util.List;
 @Data
 public class StartupCreateDto {
+    private Long id;
     @NotBlank(message = "")
     @NotNull(message = "")
     @Size(max = 100, message = "")
@@ -20,13 +21,13 @@ public class StartupCreateDto {
     @NotBlank(message = "")
     @NotNull(message = "")
     @Size(max = 100, message = "")
-    private String fullDescription;
+    private String longDescription;
     @NotNull(message = "")
     private List<Long> categoriesId;
     @NotNull(message = "")
-    private MultipartFile cover;
-    @NotNull(message = "")
-    private List<MultipartFile> slides;
-    @NotNull(message = "")
     private String stage;
+
+    private boolean flag;
+    private List<String> paths;
+    private String cover;
 }

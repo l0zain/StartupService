@@ -1,9 +1,7 @@
 package org.project.startupservice.service;
 
-import io.minio.BucketExistsArgs;
-import io.minio.MakeBucketArgs;
-import io.minio.MinioClient;
-import io.minio.PutObjectArgs;
+import io.minio.*;
+import io.minio.http.Method;
 import lombok.RequiredArgsConstructor;
 import lombok.SneakyThrows;
 import org.project.startupservice.exception.ImageUploadException;
@@ -13,6 +11,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.List;
 import java.util.UUID;
 
 @Service
@@ -50,7 +49,7 @@ public class ImageService {
     private String getExtension(String fileName) {
         String extension = fileName.substring(fileName.lastIndexOf(".") + 1);
         if (extension.equals("jpg") || extension.equals("jpeg") || extension.equals("png")) {
-            return extension;
+            return "." + extension;
         } else throw new ImageUploadException("Extension of image is failed");
     }
 
@@ -77,5 +76,15 @@ public class ImageService {
                         .stream(inputStream, inputStream.available(), -1)
                         .build()
         );
+    }
+
+    @SneakyThrows
+    public String generatePresignUrl(String path) {
+        return minioClient.getPresignedObjectUrl(
+                GetPresignedObjectUrlArgs.builder()
+                        .bucket(minioProperties.getBucket())
+                        .object(path)
+                        .method(Method.GET)
+                .build());
     }
 }

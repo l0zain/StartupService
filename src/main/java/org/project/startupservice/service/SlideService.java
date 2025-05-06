@@ -17,7 +17,7 @@ public class SlideService {
     private final ImageService imageService;
     private final SlideRepository slideRepository;
 
-    public void handlerSlides(Startup startup, List<MultipartFile> slides) {
+    public List<String> handlerSlides(Startup startup, List<MultipartFile> slides) {
         if (slides.isEmpty()) {
             throw new IllegalArgumentException();
         }
@@ -40,6 +40,11 @@ public class SlideService {
 
         //TODO:идентити не принимает, поменять!!
         slideRepository.saveAll(slidesForSave);
+
+        return slideRepository.getAllSlidePath().stream()
+                .map(imageService::generatePresignUrl)
+                .toList();
+
     }
 
 }

@@ -1,11 +1,13 @@
 package org.project.startupservice.model;
 
 import jakarta.persistence.*;
+import lombok.Data;
 
 import java.util.List;
 
 @Entity
 @Table(name = "category")
+@Data
 public class Category {
     @Id
     @Column(name = "id_category")
